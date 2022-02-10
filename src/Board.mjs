@@ -17,6 +17,10 @@ export class Board {
     }
   }
 
+  hasFalling() {
+    return !!this.falling;
+  }
+
   drop(block) {
     if(this.falling !== undefined) throw new Error('already falling');
     this.falling = { color: block.color, row: 0, col: 1 };
@@ -24,9 +28,13 @@ export class Board {
   }
 
   tick() {
-    this.state[this.falling.row][this.falling.col] = '.';
     this.falling.row++;
-    this.state[this.falling.row][this.falling.col] = this.falling.color;
+    if(this.falling.row >= this.height) {
+      this.falling = undefined;
+    } else {
+      this.state[this.falling.row-1][this.falling.col] = '.';
+      this.state[this.falling.row][this.falling.col] = this.falling.color;
+    }
   }
 
   toString() {
