@@ -29,7 +29,7 @@ export class Board {
 
   tick() {
     this.falling.row++;
-    if(this.falling.row >= this.height) {
+    if(this.falling.row >= this.height || this.state[this.falling.row][this.falling.col] !== '.') {
       this.falling = undefined;
     } else {
       this.state[this.falling.row-1][this.falling.col] = '.';
