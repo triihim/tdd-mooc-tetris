@@ -2,6 +2,7 @@ export class Board {
   width;
   height;
   state;
+  falling;
 
   constructor(width, height) {
     this.width = width;
@@ -16,7 +17,14 @@ export class Board {
   }
 
   drop(block) {
+    this.falling = { color: block.color, row: 0, col: 1 };
     this.state[0][1] = block.color;
+  }
+
+  tick() {
+    this.state[this.falling.row][this.falling.col] = '.';
+    this.falling.row++;
+    this.state[this.falling.row][this.falling.col] = this.falling.color;
   }
 
   toString() {
