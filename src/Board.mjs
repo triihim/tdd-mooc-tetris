@@ -2,49 +2,53 @@ export class Board {
   width;
   height;
   state;
-  falling;
+  fallingBlock;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.initialise();
+  }
+
+  initialise() {
     this.state = [];
-    this.falling = undefined;
-    for(let row = 0; row < width; row++) {
+    this.fallingBlock = null;
+    for(let row = 0; row < this.width; row++) {
       this.state[row] = [];
-      for(let col = 0; col < height; col++) {
+      for(let col = 0; col < this.height; col++) {
         this.state[row][col] = '.';
       }
     }
   }
 
-  hasFalling() {
-    return !!this.falling;
-  }
+  hasFalling = () => !!this.fallingBlock;
+  isColliding = () => this.state[this.fallingBlock.row][this.fallingBlock.col] !== '.';
+  isOutOfBounds = () => this.fallingBlock.row >= this.height;
 
   drop(block) {
-    if(this.falling !== undefined) throw new Error('already falling');
-    this.falling = { color: block.color, row: 0, col: 1 };
-    this.state[0][1] = block.color;
+    if(this.hasFalling()) throw new Error('already falling');
+    this.fallingBlock = { color: block.color, row: 0, col: 1 };
+    this.state[0][Math.floor(this.width / 2)] = block.color;
   }
 
   tick() {
-    this.falling.row++;
-    if(this.falling.row >= this.height || this.state[this.falling.row][this.falling.col] !== '.') {
-      this.falling = undefined;
+    this.fallingBlock.row++;
+    if(this.isOutOfBounds() || this.isColliding()) {
+      this.fallingBlock = null;
     } else {
-      this.state[this.falling.row-1][this.falling.col] = '.';
-      this.state[this.falling.row][this.falling.col] = this.falling.color;
+      this.state[this.fallingBlock.row-1][this.fallingBlock.col] = '.';
+      this.state[this.fallingBlock.row][this.fallingBlock.col] = this.fallingBlock.color;
     }
   }
 
   toString() {
-    let s = '';
+    let board = '';
     for(let row = 0; row < this.width; row++) {
       for(let col = 0; col < this.height; col++) {
-        s += this.state[row][col];
+        board += this.state[row][col];
       }
-      s += '\n';
+      board += '\n';
     }
-    return s;
+    return board;
   }
 }
