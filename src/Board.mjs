@@ -8,6 +8,7 @@ export class Board {
     this.width = width;
     this.height = height;
     this.state = [];
+    this.falling = undefined;
     for(let row = 0; row < width; row++) {
       this.state[row] = [];
       for(let col = 0; col < height; col++) {
@@ -17,6 +18,7 @@ export class Board {
   }
 
   drop(block) {
+    if(this.falling !== undefined) throw new Error('already falling');
     this.falling = { color: block.color, row: 0, col: 1 };
     this.state[0][1] = block.color;
   }
