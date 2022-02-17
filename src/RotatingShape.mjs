@@ -15,6 +15,16 @@ export class RotatingShape {
         return new RotatingShape(newShape.map(row => row.join('')).join('\n'));
     }
 
+    rotateLeft() {
+        const newShape = [...Array(this.sideLength)].map(e => Array(this.sideLength));
+        for(let row = 0; row < this.sideLength; row++) {
+            for(let col = 0; col < this.sideLength; col++) {
+                newShape[row][col] = this.shape[col][this.sideLength - row - 1];
+            }
+        }
+        return new RotatingShape(newShape.map(row => row.join('')).join('\n'));
+    }
+
     toString() {
         return this.shape.join('\n') + '\n';
     }
