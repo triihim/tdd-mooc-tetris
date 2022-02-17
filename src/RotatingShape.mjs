@@ -5,8 +5,8 @@ export class RotatingShape {
         this.shape = rows.reduce((shape, row) => shape.concat(row.trim()), []);
     }
 
-    rotateRight = () => this._rotate('RIGHT');
-    rotateLeft = () => this._rotate('LEFT');
+    rotateRight() { return this._rotate('RIGHT'); }
+    rotateLeft() { return this._rotate('LEFT'); }
 
     _rotate(direction) {
         const newShape = [...Array(this.sideLength)].map(e => Array(this.sideLength));
@@ -18,5 +18,5 @@ export class RotatingShape {
         return new RotatingShape(newShape.map(row => row.join('')).join('\n'));
     }
 
-    toString = () => this.shape.join('\n') + '\n';
+    toString() { return this.shape.join('\n') + '\n'; }
 }
