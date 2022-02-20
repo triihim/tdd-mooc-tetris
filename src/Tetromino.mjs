@@ -25,6 +25,10 @@ export class Tetromino {
         return new Tetromino('.....\n.....\nIIII.\n.....\n.....', 0, 2);
     }
 
+    static get O_SHAPE() {
+        return new Tetromino('.OO\n.OO\n...', 0, 1);
+    }
+
     rotateRight() {
         return new Tetromino(null, this.currentOrientationIndex + 1, this.possibleOrientations.length, this.possibleOrientations);
     }
