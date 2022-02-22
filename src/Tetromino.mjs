@@ -40,4 +40,8 @@ export class Tetromino {
     toString() {
         return this.possibleOrientations[this.currentOrientationIndex].toString();
     }
+
+    get shape() {
+        return this.possibleOrientations[this.currentOrientationIndex];
+    }
 }
