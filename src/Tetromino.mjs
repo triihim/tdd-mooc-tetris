@@ -42,6 +42,11 @@ export class Tetromino {
     }
 
     get shape() {
-        return this.possibleOrientations[this.currentOrientationIndex];
+        return this.possibleOrientations[this.currentOrientationIndex].shape;
     }
+
+    get sideLength() {
+        return this.possibleOrientations[this.currentOrientationIndex].sideLength;
+    }
+
 }

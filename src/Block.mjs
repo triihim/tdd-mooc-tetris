@@ -8,4 +8,8 @@ export class Block {
   get shape() {
     return [[this.color]];
   }
+
+  get sideLength() {
+    return 1;
+  }
 }
